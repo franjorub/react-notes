@@ -1,5 +1,5 @@
 const express = require('express');
-const noteController = require('./controllers/note');
+const apiRouter = require('./routes/api');
 
 const app = express();
 require('./config/db');
@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-app.post('/notes', noteController.createNote);
+app.use('/api/notes', apiRouter);
 
 app.listen(3000, () => {
   console.log('Server listening at http://localhost:3000');

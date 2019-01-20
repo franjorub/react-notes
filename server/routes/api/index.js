@@ -5,3 +5,5 @@ const router = express.Router();
 
 router.get('/', noteController.getAllNotes);
 router.post('/', noteController.createNote);
+
+module.exports = router;
