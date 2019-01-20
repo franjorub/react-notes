@@ -7,8 +7,8 @@
     "build": "webpack -d",
     "start:dev:client": "webpack-dev-server --open --mode development",
     "start:dev:server": "NODE_ENV=development nodemon server/index.js",
-    "lint:fix:client": "eslint client/**/*.jsx client/index.jsx --fix",
-    "lint:fix:server": "eslint server/**/*.js server/index.js --fix"
+    "lint:fix:client": "eslint client --ext .js,.jsx --fix",
+    "lint:fix:server": "eslint server --fix"
   },
   "keywords": [],
   "author": "",

@@ -1,5 +1,5 @@
 const express = require('express');
-const noteService = require('./services/notes');
+const noteController = require('./controllers/note');
 
 const app = express();
 require('./config/db');
@@ -11,18 +11,7 @@ app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
-app.post('/notes', (req, res) => {
-  const incomingNote = req.body;
-  noteService
-    .createNote(incomingNote)
-    .then((note) => {
-      console.log(note);
-      res.status(201).send(note);
-    })
-    .catch((err) => {
-      res.status(409).send(err);
-    });
-});
+app.post('/notes', noteController.createNote);
 
 app.listen(3000, () => {
   console.log('Server listening at http://localhost:3000');
