@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const config = {
   entry: './client/index.jsx',
@@ -46,6 +47,9 @@ const config = {
     port: 9000,
     compress: true,
     contentBase: path.resolve(__dirname, 'public'),
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()],
   },
 };
 
