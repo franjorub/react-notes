@@ -22,7 +22,7 @@ export default class Note extends Component {
   };
 
   render() {
-    const { onDeleteNote, onUpdateNote, id } = this.props;
+    const { onDeleteNote, onUpdateNote, _id } = this.props;
     const { title, description } = this.state;
 
     const { open } = this.state;
@@ -45,7 +45,7 @@ export default class Note extends Component {
             Edit note
           </button>
           <Modal open={open} onClose={this.onCloseModal} center>
-            <form action="" onSubmit={event => onUpdateNote(event, this.state)}>
+            <form action="" onSubmit={event => onUpdateNote(event, { _id, title, description })}>
               <div className="form-group">
                 <label htmlFor="title">
                   Title
@@ -89,7 +89,7 @@ export default class Note extends Component {
                 <div className="col-6">
                   <button
                     type="button"
-                    onClick={() => onDeleteNote(id)}
+                    onClick={() => onDeleteNote(_id)}
                     className="btn btn-danger"
                   >
                     Delete
@@ -107,7 +107,7 @@ export default class Note extends Component {
 Note.propTypes = {
   title: Proptypes.string,
   description: Proptypes.string,
-  id: Proptypes.string,
+  _id: Proptypes.string,
   onDeleteNote: Proptypes.func,
   onUpdateNote: Proptypes.func,
 };
@@ -115,7 +115,7 @@ Note.propTypes = {
 Note.defaultProps = {
   title: '',
   description: '',
-  id: '',
+  _id: '',
   onDeleteNote: () => {},
   onUpdateNote: () => {},
 };

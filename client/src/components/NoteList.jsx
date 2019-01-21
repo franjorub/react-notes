@@ -1,8 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
-
-import notesMocks from '../utils/notes';
 import Note from './Note';
 import AddNote from './AddNote';
+import notesServices from '../services/notesServices';
 
 export default class NoteList extends Component {
   state = {
@@ -10,32 +10,51 @@ export default class NoteList extends Component {
   };
 
   componentDidMount() {
-    this.setState({ notes: notesMocks });
+    notesServices.getNotes().then(({ data }) => {
+      this.setState({ notes: data });
+    }).catch((err) => {
+      console.log(err);
+    });
+    // this.setState({ notes: notesMocks });
   }
 
-  onDeleteNote = (id) => {
-    this.setState((prevState) => {
-      const { notes } = prevState;
-      const filterNotes = notes.filter(note => note.id !== id);
-      return { notes: filterNotes };
+  onDeleteNote = (_id) => {
+    notesServices.deleNote(_id).then(() => {
+      this.setState((prevState) => {
+        const { notes } = prevState;
+        const filterNotes = notes.filter(note => note._id !== _id);
+        return { notes: filterNotes };
+      });
+    }).catch((err) => {
+      console.log(err);
     });
   };
 
   onUpdateNote = (event, newNote) => {
-    const { notes } = this.state;
-    const index = notes.findIndex(note => note.id === newNote.id);
     event.preventDefault();
-    notes[index] = newNote;
-    this.setState({ notes });
+    console.log(newNote._id);
+    notesServices.updateNote(newNote).then(() => {
+      const { notes } = this.state;
+      const index = notes.findIndex(note => note._id === newNote._id);
+      notes[index] = newNote;
+      this.setState({ notes });
+    }).catch((err) => {
+      console.log(err);
+    });
   };
 
   onCreateNote = (event, note) => {
     event.preventDefault();
-
-    this.setState((prevState) => {
-      const { notes } = prevState;
-      notes.push(note);
-      return { notes };
+    console.log(note);
+    notesServices.createNote(note).then(({ data }) => {
+      console.log(data);
+      this.setState((prevState) => {
+        const { notes } = prevState;
+        notes.push(data);
+        return { notes };
+      });
+    }).catch((err) => {
+      console.log(err);
     });
   };
 
@@ -45,9 +64,9 @@ export default class NoteList extends Component {
     const noteList = notes.map(note => (
       <Note
         title={note.title}
-        key={note.id}
+        key={note._id}
         description={note.description}
-        id={note.id}
+        _id={note._id}
         onDeleteNote={this.onDeleteNote}
         onUpdateNote={this.onUpdateNote}
       />

@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const apiRouter = require('./routes/api');
 require('./config/db');
 
@@ -14,6 +15,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static('public'));
 
 app.use(express.json());
+
+app.options('*', cors());
 
 app.get('/', (req, res) => {
   res.sendFile('index.html');

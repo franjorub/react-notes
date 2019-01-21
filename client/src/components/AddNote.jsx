@@ -29,7 +29,7 @@ export default class AddNote extends Component {
             onSubmit={event => onCreateNote(event, {
               title,
               description,
-              id: `${new Date().getMilliseconds()}`,
+
             })
             }
           >

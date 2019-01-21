@@ -27,6 +27,7 @@ const noteService = {
     });
   }),
   updateNote: (id, payload) => new Promise((resolve, reject) => {
+    console.log(payload);
     Notes.findOneAndUpdate({ _id: id }, { $set: payload }, (err, data) => {
       if (err) return reject(err);
 
