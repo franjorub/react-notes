@@ -1,8 +1,8 @@
-const NoteSchema = require('../models/notes');
+const Notes = require('../models/notes');
 
 const noteService = {
   createNote: async ({ title, description }) => {
-    const note = new NoteSchema({ title, description });
+    const note = new Notes({ title, description });
     try {
       const newNote = await note.save();
       console.log('note saved', newNote);
@@ -12,6 +12,34 @@ const noteService = {
       return err;
     }
   },
+  getAllNotes: (payload = {}) => new Promise((resolve, reject) => {
+    Notes.find(payload, (err, data) => {
+      if (err) return reject(err);
+
+      return resolve(data);
+    });
+  }),
+  getNoteById: id => new Promise((resolve, reject) => {
+    Notes.findOne({ _id: id }, (err, data) => {
+      if (err) return reject(err);
+
+      return resolve(data);
+    });
+  }),
+  updateNote: (id, payload) => new Promise((resolve, reject) => {
+    Notes.findOneAndUpdate({ _id: id }, { $set: payload }, (err, data) => {
+      if (err) return reject(err);
+
+      return resolve(data);
+    });
+  }),
+  deleteNote: id => new Promise((resolve, reject) => {
+    Notes.findOneAndDelete({ _id: id }, (err, data) => {
+      if (err) return reject(err);
+
+      return resolve(data);
+    });
+  }),
 };
 
 module.exports = noteService;

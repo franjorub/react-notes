@@ -1,10 +1,18 @@
 const express = require('express');
+const morgan = require('morgan');
 const apiRouter = require('./routes/api');
-
-const app = express();
 require('./config/db');
 
+const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+} else {
+  app.use(morgan('tiny'));
+}
+
 app.use(express.static('public'));
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
