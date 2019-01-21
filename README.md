@@ -1,18 +1,19 @@
-# React Boilerplate
+# React MERN
 
 ## Description
 
-This is a simple boilerplate for just Download the necessary packages and start a react project.
+This is a simple project of a MERN stack.
 
 ---
 
 ## Requirements
 
-The boilerplate has been tested in the following enviroment
+The project has been tested in the following enviroment
 
 - node version ^8.0
 - npm version ^3.5
-
+- mongodb ^3.5
+  
 ---
 
 ## Current Features
@@ -27,7 +28,7 @@ The boilerplate has been tested in the following enviroment
 
 ## Usage
 
-Run the following commands to use the boilerplate.
+Run the following commands to use the client side.
 
 - Install the dependencies.
 
@@ -53,6 +54,25 @@ npm run start:dev
 npm run lint:fix
 ```
 
+For run the api run this commands.
+
+- Development: **Remember!!!** You need have a mongodb instance running in your local machine. 
+
+```
+npm run start:dev:server
+```
+```
+npm run start:dev:client
+```
+
+- Production: the database is hosted in mlab :D.
+  
+```
+npm run build
+```
+```
+npm run start
+```
 ---
 
 ## Contribution
