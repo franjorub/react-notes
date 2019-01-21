@@ -6,6 +6,8 @@ require('./config/db');
 
 const app = express();
 
+const { PORT } = process.env || 3000;
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 } else {
@@ -24,6 +26,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/notes', apiRouter);
 
-app.listen(3000, () => {
-  console.log('Server listening at http://localhost:3000');
+app.listen(PORT, () => {
+  console.log(`Server listening at http://localhost:${PORT}`);
 });
